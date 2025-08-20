@@ -1,0 +1,70 @@
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitness_app/pressable_card.dart';
+
+class MainPage extends StatefulWidget {
+  final User? user;
+  const MainPage({super.key, required this.user});
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  final List<Map<String, String>> cardData = [
+      {
+        'title': 'Meal Plan',
+        'subtitle': 'Your plate is your canvas; paint it with vibrant colors of nourishment.',
+        'image': 'assets/images/food_card.png',
+      },
+      {
+        'title': 'Exercise',
+        'subtitle': 'Motivation is what gets you started. Habit is what keeps you going.',
+        'image': 'assets/images/exercise_card.png',
+      },
+    ];
+
+  @override
+  Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+
+    return Scaffold(
+      backgroundColor: theme.colorScheme.primary,
+      appBar: AppBar(
+        title: Text('Hi, ${widget.user?.displayName ?? 'User'}!'),
+        actions: <Widget>[
+          TextButton.icon(
+            icon: const Icon(Icons.menu, color: Colors.white),
+            label: const Text(
+              'Menu',
+              style: TextStyle(color: Colors.white),
+            ),
+            onPressed: () {
+            },
+          ),
+        ],
+      ),
+      body: ListView.builder(
+        itemCount: cardData.length,
+        itemBuilder: (context, index) {
+          final data = cardData[index];
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: SizedBox(
+              height: 200, // <-- Set a fixed height for the card
+              child: PressableCardWithImage(
+                title: data['title']!,
+                subtitle: data['subtitle']!,
+                backgroundImage: data['image']!,
+                onTap: () {
+                  // Individual action for each card
+                  print('Tapped on: ${data['title']}');
+                },
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
