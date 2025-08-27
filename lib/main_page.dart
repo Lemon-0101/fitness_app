@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_app/pressable_card.dart';
+import 'package:fitness_app/exercise_plan_page.dart';
 
 class MainPage extends StatefulWidget {
   final User? user;
@@ -12,17 +13,37 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final List<Map<String, String>> cardData = [
-      {
-        'title': 'Meal Plan',
-        'subtitle': 'Your plate is your canvas; paint it with vibrant colors of nourishment.',
-        'image': 'assets/images/food_card.png',
-      },
-      {
-        'title': 'Exercise',
-        'subtitle': 'Motivation is what gets you started. Habit is what keeps you going.',
-        'image': 'assets/images/exercise_card.png',
-      },
-    ];
+    {
+      'title': 'Meal Plan',
+      'subtitle': 'Your plate is your canvas; paint it with vibrant colors of nourishment.',
+      'image': 'assets/images/food_card.png',
+      'id': '1',
+    },
+    {
+      'title': 'Exercise',
+      'subtitle': 'Motivation is what gets you started. Habit is what keeps you going.',
+      'image': 'assets/images/exercise_card.png',
+      'id': '2',
+    },
+  ];
+
+  void _navigateToPage(value) {
+    switch (value) {
+      case '1':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ExercisePlanPage(user: widget.user)),
+        );
+        break;
+      case '2':
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => ExercisePlanPage(user: widget.user)),
+        );
+        break;
+      default:
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +79,7 @@ class _MainPageState extends State<MainPage> {
                 backgroundImage: data['image']!,
                 onTap: () {
                   // Individual action for each card
-                  print('Tapped on: ${data['title']}');
+                  _navigateToPage(data['id']);
                 },
               ),
             ),

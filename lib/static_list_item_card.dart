@@ -6,6 +6,8 @@ class StaticListItem extends StatefulWidget {
   final IconData icon;
   final List<String> options;
   final bool isMultiSelect;
+  final ValueChanged<List<String>> onSelectedItemsChanged;
+  final List<String> defaultSelectedItems;
 
   const StaticListItem({
     super.key,
@@ -14,6 +16,8 @@ class StaticListItem extends StatefulWidget {
     required this.icon,
     required this.options,
     this.isMultiSelect = true, // Default to multi-select
+    required this.onSelectedItemsChanged,
+    this.defaultSelectedItems = const [],
   });
 
   @override
@@ -22,6 +26,18 @@ class StaticListItem extends StatefulWidget {
 
 class _StaticListItemState extends State<StaticListItem> {
   List<String> _selectedItems = [];
+
+   @override
+  void initState() {
+    super.initState();
+    _selectedItems = List.from(widget.defaultSelectedItems);
+
+    if (_selectedItems.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        widget.onSelectedItemsChanged(_selectedItems);
+      });
+    }
+  }
 
   void _showSelectionDialog() async {
     dynamic results;
@@ -54,6 +70,7 @@ class _StaticListItemState extends State<StaticListItem> {
         } else {
           _selectedItems = [results as String];
         }
+        widget.onSelectedItemsChanged(_selectedItems);
       });
     }
   }
@@ -84,6 +101,7 @@ class _StaticListItemState extends State<StaticListItem> {
                   onDeleted: () {
                     setState(() {
                       _selectedItems.remove(item);
+                      widget.onSelectedItemsChanged(_selectedItems);
                     });
                   },
                 );
