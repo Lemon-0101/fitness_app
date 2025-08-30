@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
 
-class StaticListItem extends StatefulWidget {
+class SelectListItem extends StatefulWidget {
   final String title;
   final String subtitle;
-  final IconData icon;
+  final IconData? icon;
   final List<String> options;
   final bool isMultiSelect;
   final ValueChanged<List<String>> onSelectedItemsChanged;
   final List<String> defaultSelectedItems;
 
-  const StaticListItem({
+  const SelectListItem({
     super.key,
     required this.title,
-    required this.subtitle,
-    required this.icon,
-    required this.options,
-    this.isMultiSelect = true, // Default to multi-select
-    required this.onSelectedItemsChanged,
+    this.subtitle = "",
+    this.icon,
+    this.options = const [],
+    this.isMultiSelect = false, // Default to multi-select
+    this.onSelectedItemsChanged = _defaultOnChanged,
     this.defaultSelectedItems = const [],
   });
 
+  static void _defaultOnChanged(List<String> items) {}
+
   @override
-  _StaticListItemState createState() => _StaticListItemState();
+  _SelectListItemState createState() => _SelectListItemState();
 }
 
-class _StaticListItemState extends State<StaticListItem> {
+class _SelectListItemState extends State<SelectListItem> {
   List<String> _selectedItems = [];
 
    @override
@@ -86,8 +88,8 @@ class _StaticListItemState extends State<StaticListItem> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ListTile(
-            leading: Icon(widget.icon),
-            title: Text(widget.title),
+            leading: widget.icon != null ? Icon(widget.icon) : null,
+            title: Text(widget.title, style: TextStyle(fontWeight: FontWeight.bold)),
             subtitle: Text(widget.subtitle),
           ),
           Padding(
@@ -98,23 +100,27 @@ class _StaticListItemState extends State<StaticListItem> {
               children: _selectedItems.map((item) {
                 return Chip(
                   label: Text(item),
-                  onDeleted: () {
+                  onDeleted: widget.options.isNotEmpty ? () {
                     setState(() {
                       _selectedItems.remove(item);
                       widget.onSelectedItemsChanged(_selectedItems);
                     });
-                  },
+                  }
+                  : null,
                 );
               }).toList(),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ElevatedButton(
-              onPressed: _showSelectionDialog,
-              child: const Text('Select Options'),
-            ),
-          ),
+          if (widget.options.isNotEmpty) 
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ElevatedButton(
+                onPressed: _showSelectionDialog,
+                child: const Text('Select Options'),
+              ),
+            )
+          else
+            SizedBox(height: 14)
         ],
       ),
     );

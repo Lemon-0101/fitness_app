@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class TextListItem extends StatefulWidget {
+class TextboxListItem extends StatefulWidget {
   final String title;
   final String subtitle;
   final IconData icon;
   final ValueChanged<String> onChanged;
   final String initialValue;
 
-  const TextListItem({
+  const TextboxListItem({
     super.key,
     required this.title,
     required this.subtitle,
@@ -17,10 +17,10 @@ class TextListItem extends StatefulWidget {
   });
 
   @override
-  _TextListItemState createState() => _TextListItemState();
+  _TextboxListItemState createState() => _TextboxListItemState();
 }
 
-class _TextListItemState extends State<TextListItem> {
+class _TextboxListItemState extends State<TextboxListItem> {
   late final TextEditingController _controller;
 
   @override
@@ -50,7 +50,7 @@ class _TextListItemState extends State<TextListItem> {
         children: [
           ListTile(
             leading: Icon(widget.icon),
-            title: Text(widget.title),
+            title: Text(widget.title, style: TextStyle(fontWeight: FontWeight.bold)),
             subtitle: Text(widget.subtitle),
           ),
           Padding(

@@ -14,6 +14,19 @@ class PressableCardWithImage extends StatelessWidget {
     required this.onTap,
   });
 
+  Image getImage(){
+    Image tempImage = Image.asset(backgroundImage, fit: BoxFit.cover);
+    try {
+      final Uri? uri = Uri.tryParse(backgroundImage);
+      if (uri != null && (uri.scheme == 'http' || uri.scheme == 'https')) {
+        tempImage = Image.network(backgroundImage, fit: BoxFit.contain);
+      }
+    } catch (e) {
+      tempImage = Image.asset(backgroundImage, fit: BoxFit.cover);
+    }
+    return tempImage;
+  } 
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -28,10 +41,7 @@ class PressableCardWithImage extends StatelessWidget {
           children: [
             // Background Image
             Positioned.fill(
-              child: Image.asset(
-                backgroundImage,
-                fit: BoxFit.cover,
-              ),
+              child: getImage(),
             ),
             // Optional: Dark overlay to improve text readability
             Positioned.fill(
@@ -53,14 +63,14 @@ class PressableCardWithImage extends StatelessWidget {
                     style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      fontSize: 40,
+                      fontSize: 32,
                     ),
                   ),
                   Text(
                     subtitle,
                     style: const TextStyle(
                       color: Colors.white70,
-                      fontSize: 17,
+                      fontSize: 20,
                     ),
                   ),
                 ],

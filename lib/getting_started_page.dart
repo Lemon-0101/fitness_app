@@ -2,7 +2,7 @@ import 'package:fitness_app/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fitness_app/static_list_item_card.dart';
+import 'package:fitness_app/select_list_item_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GettingStartedPage extends StatefulWidget {
@@ -157,7 +157,7 @@ class _GettingStartedPageState extends State<GettingStartedPage> {
                 )
               ),
               SizedBox(height: 10),
-              StaticListItem(
+              SelectListItem(
                 title: 'Diet',
                 subtitle: 'This is the first item in the list.',
                 icon: Icons.filter_1,
@@ -182,7 +182,7 @@ class _GettingStartedPageState extends State<GettingStartedPage> {
                 }
               ),
               SizedBox(height: 10), // Add spacing between items
-              StaticListItem(
+              SelectListItem(
                 title: 'Intolerances',
                 subtitle: 'This is the second item in the list.',
                 icon: Icons.filter_2,
@@ -201,7 +201,7 @@ class _GettingStartedPageState extends State<GettingStartedPage> {
                 }
               ),
               SizedBox(height: 10),
-              StaticListItem(
+              SelectListItem(
                 title: 'Allergies',
                 subtitle: 'This is the third item in the list.',
                 icon: Icons.filter_3,
@@ -222,7 +222,7 @@ class _GettingStartedPageState extends State<GettingStartedPage> {
                 }
               ),
               SizedBox(height: 10),
-              StaticListItem(
+              SelectListItem(
                 title: 'Fitness Level',
                 subtitle: 'This is the fourth item in the list.',
                 icon: Icons.filter_4,
@@ -231,14 +231,13 @@ class _GettingStartedPageState extends State<GettingStartedPage> {
                   "Intermediate",
                   "Pro"
                 ],
-                isMultiSelect: false,
                 defaultSelectedItems: ["Beginner"],
                 onSelectedItemsChanged: (newSelectedItems) {
                   _updateItem(4, newSelectedItems);
                 }
               ),
               SizedBox(height: 10),
-              StaticListItem(
+              SelectListItem(
                 title: 'Equipment',
                 subtitle: 'This is the fifth item in the list.',
                 icon: Icons.filter_4,
