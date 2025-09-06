@@ -1,3 +1,5 @@
+import 'package:fitness_app/pose_detector.dart';
+import 'package:fitness_app/pose_detector_page.dart';
 import 'package:fitness_app/select_list_item_card.dart';
 import 'package:fitness_app/video_player_widget.dart';
 import 'package:flutter/material.dart';
@@ -156,6 +158,16 @@ class _ExerciseDetailsPageState extends State<ExerciseDetailsPage> {
               ),
             ),
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            // Add your action here, for example:
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => PoseDetectorView(user: widget.user, data: cardData)),
+            );
+          },
+          child: const Icon(Icons.start),
         ),
       )
     );

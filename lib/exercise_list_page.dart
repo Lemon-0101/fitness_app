@@ -2,7 +2,6 @@ import 'package:fitness_app/exercise_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_app/pressable_card.dart';
-import 'package:fitness_app/exercise_plan_page.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
