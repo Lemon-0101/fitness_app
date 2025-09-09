@@ -78,7 +78,7 @@ class _MealPlanPageState extends State<MealPlanPage> {
               style: TextStyle(color: Colors.white), // Set text color for contrast
             ),
             onPressed: () {
-              if (_selectedDuration.isNotEmpty && _caloriesValue.isNotEmpty && _selectedDiet.isNotEmpty && _selectedIntolerances.isNotEmpty) {
+              if (_selectedDuration.isNotEmpty && _caloriesValue.isNotEmpty) {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => MealListPage(user: widget.user, selectedDuration: _selectedDuration, caloriesValue: _caloriesValue, selectedDiet: _selectedDiet, selectedIntolerances: _selectedIntolerances)),
