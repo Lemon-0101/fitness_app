@@ -60,6 +60,8 @@ class PressableCardWithImage extends StatelessWidget {
                 children: [
                   Text(
                     title,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
                     style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,

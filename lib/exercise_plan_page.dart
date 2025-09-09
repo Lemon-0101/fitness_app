@@ -74,8 +74,8 @@ class _ExercisePlanPageState extends State<ExercisePlanPage> {
               SizedBox(height: 10),
               SelectListItem(
                 title: 'Target Body Part',
-                subtitle: 'This is the second item in the list.',
-                icon: Icons.filter_2,
+                subtitle: 'This is the first item in the list.',
+                icon: Icons.filter_1,
                 options: [
                   "BACK",
                   "CALVES",
@@ -103,8 +103,8 @@ class _ExercisePlanPageState extends State<ExercisePlanPage> {
               ),
               SizedBox(height: 10), // Add spacing between items
               DateListItem(
-                title: 'Select Available Dates',
-                subtitle: 'Choose one or more dates for your event.',
+                title: 'Select Target Dates',
+                subtitle: 'Choose one or more dates for your plan.',
                 icon: Icons.calendar_month,
                 // 2. The callback function to receive the updated list
                 onSelectedDatesChanged: (newlySelectedDates) {

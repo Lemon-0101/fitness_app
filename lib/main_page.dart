@@ -1,3 +1,4 @@
+import 'package:fitness_app/meal_plan_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_app/pressable_card.dart';
@@ -32,11 +33,11 @@ class _MainPageState extends State<MainPage> {
       case '1':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ExercisePlanPage(user: widget.user)),
+          MaterialPageRoute(builder: (context) => MealPlanPage(user: widget.user)),
         );
         break;
       case '2':
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => ExercisePlanPage(user: widget.user)),
         );

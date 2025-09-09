@@ -1,4 +1,5 @@
 import 'package:fitness_app/main_page.dart';
+import 'package:fitness_app/textbox_list_item_card.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,7 +17,6 @@ class GettingStartedPage extends StatefulWidget {
 class _GettingStartedPageState extends State<GettingStartedPage> {
   List<String> _selectedDiet = [];
   List<String> _selectedIntolerances = [];
-  List<String> _selectedAllergies = [];
   List<String> _selectedFitnessLevel = [];
   List<String> _selectedEquipment = [];
   bool _isLoading = true;
@@ -64,12 +64,9 @@ class _GettingStartedPageState extends State<GettingStartedPage> {
           _selectedIntolerances = selectedItems;
           break;
         case 3:
-          _selectedAllergies = selectedItems;
-          break;
-        case 4:
           _selectedFitnessLevel = selectedItems;
           break;
-        case 5:
+        case 4:
           _selectedEquipment = selectedItems;
           break;
         default:
@@ -89,7 +86,6 @@ class _GettingStartedPageState extends State<GettingStartedPage> {
       final Map<String, dynamic> userData = {
         'diet': _selectedDiet,
         'intolerances': _selectedIntolerances,
-        'allergies': _selectedAllergies,
         'fitness_level': _selectedFitnessLevel,
         'equipment': _selectedEquipment,
         'createdAt': FieldValue.serverTimestamp(),
@@ -102,7 +98,6 @@ class _GettingStartedPageState extends State<GettingStartedPage> {
         // Save the list using a key
         await prefs.setStringList('diet', _selectedDiet);
         await prefs.setStringList('intolerances', _selectedIntolerances);
-        await prefs.setStringList('allergies', _selectedAllergies);
         await prefs.setStringList('fitness_level', _selectedFitnessLevel);
         await prefs.setStringList('equipment', _selectedEquipment);
         Navigator.pushReplacement(
@@ -162,19 +157,17 @@ class _GettingStartedPageState extends State<GettingStartedPage> {
                 subtitle: 'This is the first item in the list.',
                 icon: Icons.filter_1,
                 options: [
+                  "Gluten Free",
+                  "Ketogenic",
                   "Vegetarian",
+                  "Lacto-Vegetarian",
+                  "Ovo-Vegetarian",
                   "Vegan",
-                  "Flexitarian",
-                  "Ketogenic (Keto)",
-                  "Atkins",
+                  "Pescetarian",
                   "Paleo",
-                  "Low-Carb",
-                  "Mediterranean",
-                  "DASH (Dietary Approaches to Stop Hypertension)",
-                  "MIND",
-                  "Intermittent Fasting",
+                  "Primal",
+                  "Low FODMAP",
                   "Whole30",
-                  "Gluten-Free"
                 ],
                 isMultiSelect: true,
                 onSelectedItemsChanged: (newSelectedItems) {
@@ -183,17 +176,22 @@ class _GettingStartedPageState extends State<GettingStartedPage> {
               ),
               SizedBox(height: 10), // Add spacing between items
               SelectListItem(
-                title: 'Intolerances',
+                title: 'Intolerances/Allergies',
                 subtitle: 'This is the second item in the list.',
                 icon: Icons.filter_2,
                 options: [
-                  "Lactose Intolerance",
-                  "Gluten Intolerance",
-                  "FODMAP Intolerance",
-                  "Histamine Intolerance",
-                  "Salicylate Sensitivity",
-                  "Food Additive Intolerance",
-                  "Caffeine Intolerance"
+                  "Dairy",
+                  "Egg",
+                  "Gluten",
+                  "Grain",
+                  "Peanut",
+                  "Seafood",
+                  "Sesame",
+                  "Shellfish",
+                  "Soy",
+                  "Sulfite",
+                  "Tree Nut",
+                  "Wheat"
                 ],
                 isMultiSelect: true,
                 onSelectedItemsChanged: (newSelectedItems) {
@@ -202,30 +200,9 @@ class _GettingStartedPageState extends State<GettingStartedPage> {
               ),
               SizedBox(height: 10),
               SelectListItem(
-                title: 'Allergies',
+                title: 'Fitness Level',
                 subtitle: 'This is the third item in the list.',
                 icon: Icons.filter_3,
-                options: [
-                  "Milk",
-                  "Eggs",
-                  "Peanuts",
-                  "Tree Nuts",
-                  "Wheat",
-                  "Soy",
-                  "Fish",
-                  "Crustacean Shellfish",
-                  "Sesame"
-                ],
-                isMultiSelect: true,
-                onSelectedItemsChanged: (newSelectedItems) {
-                  _updateItem(3, newSelectedItems);
-                }
-              ),
-              SizedBox(height: 10),
-              SelectListItem(
-                title: 'Fitness Level',
-                subtitle: 'This is the fourth item in the list.',
-                icon: Icons.filter_4,
                 options: [
                   "Beginner",
                   "Intermediate",
@@ -233,13 +210,13 @@ class _GettingStartedPageState extends State<GettingStartedPage> {
                 ],
                 defaultSelectedItems: ["Beginner"],
                 onSelectedItemsChanged: (newSelectedItems) {
-                  _updateItem(4, newSelectedItems);
+                  _updateItem(3, newSelectedItems);
                 }
               ),
               SizedBox(height: 10),
               SelectListItem(
                 title: 'Equipment',
-                subtitle: 'This is the fifth item in the list.',
+                subtitle: 'This is the fourth item in the list.',
                 icon: Icons.filter_4,
                 options: [
                   "Stepmill machine",
@@ -268,7 +245,7 @@ class _GettingStartedPageState extends State<GettingStartedPage> {
                 ],
                 isMultiSelect: true,
                 onSelectedItemsChanged: (newSelectedItems) {
-                  _updateItem(5, newSelectedItems);
+                  _updateItem(4, newSelectedItems);
                 }
               ),
               SizedBox(height: 10),
