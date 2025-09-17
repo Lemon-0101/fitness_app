@@ -45,6 +45,11 @@ class _GettingStartedPageState extends State<GettingStartedPage> {
       }
     } catch (e) {
       debugPrint('An unexpected error occurred: $e');
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 

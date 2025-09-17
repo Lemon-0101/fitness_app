@@ -60,10 +60,6 @@ class User {
           preferredTime = data.get("preferredTime");
           debugPrint("User retrieved: ${data.data()}");
         }
-        else {
-          throw("User not retrieved.");
-        }
-        
       }).catchError((error) {
         throw error;
       });
@@ -153,6 +149,7 @@ class User {
 
   Future<void> logout() async {
     try {
+      
       await FirebaseAuth.instance.signOut();
     } catch (error) {
       rethrow;
