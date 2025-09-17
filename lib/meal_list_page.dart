@@ -6,14 +6,12 @@ import 'package:fitness_app/pressable_card.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:intl/intl.dart';
+import 'package:fitness_app/model/user.dart' as UserModel;
 
 class MealListPage extends StatefulWidget {
-  final User? user;
   final List<String> selectedDuration;
   final String caloriesValue;
-  final List<String> selectedDiet;
-  final List<String> selectedIntolerances;
-  const MealListPage({super.key, required this.user, required this.selectedDuration, required this.caloriesValue, required this.selectedDiet, required this.selectedIntolerances});
+  const MealListPage({super.key, required this.selectedDuration, required this.caloriesValue});
 
   @override
   State<MealListPage> createState() => _MealListPageState();
@@ -36,8 +34,8 @@ class _MealListPageState extends State<MealListPage> {
         'apiKey': "3037ff4b4e9a453b9bd0a0de29aa97c2",
         'timeFrame': widget.selectedDuration[0],
         'targetCalories': widget.caloriesValue,
-        'diet': widget.selectedDiet.join(','),
-        'exclude': widget.selectedIntolerances.join(','),
+        'diet': UserModel.User().diets.join(','),
+        'exclude': UserModel.User().allergies.join(','),
       };
       
       print(Uri.https('api.spoonacular.com', '/mealplanner/generate', queryParameters).toString());
@@ -113,7 +111,7 @@ class _MealListPageState extends State<MealListPage> {
                   // Individual action for each card
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MealDetailsPage(user: widget.user, recipeId: data['id'].toString())),
+                    MaterialPageRoute(builder: (context) => MealDetailsPage(recipeId: data['id'].toString())),
                   );
                 },
               ),

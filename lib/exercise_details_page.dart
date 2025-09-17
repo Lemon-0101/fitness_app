@@ -8,9 +8,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ExerciseDetailsPage extends StatefulWidget {
-  final User? user;
   final String exerciseId;
-  const ExerciseDetailsPage({super.key, required this.user, required this.exerciseId});
+  const ExerciseDetailsPage({super.key, required this.exerciseId});
 
   @override
   State<ExerciseDetailsPage> createState() => _ExerciseDetailsPageState();
@@ -164,7 +163,7 @@ class _ExerciseDetailsPageState extends State<ExerciseDetailsPage> {
             // Add your action here, for example:
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => PoseDetectorView(user: widget.user, data: cardData)),
+              MaterialPageRoute(builder: (context) => PoseDetectorView(data: cardData)),
             );
           },
           child: const Icon(Icons.start),

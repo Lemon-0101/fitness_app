@@ -8,9 +8,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class MealDetailsPage extends StatefulWidget {
-  final User? user;
   final String recipeId;
-  const MealDetailsPage({super.key, required this.user, required this.recipeId});
+  const MealDetailsPage({super.key, required this.recipeId});
 
   @override
   State<MealDetailsPage> createState() => _MealDetailsPageState();

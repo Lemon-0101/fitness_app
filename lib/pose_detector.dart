@@ -12,9 +12,8 @@ import 'package:google_mlkit_pose_detection/google_mlkit_pose_detection.dart';
 // List<CameraDescription> cameras;
 
 class PoseDetectorView extends StatefulWidget {
-  final User? user;
   final dynamic data;
-  const PoseDetectorView({super.key, required this.user, required this.data});
+  const PoseDetectorView({super.key, required this.data});
 
   @override
   State<PoseDetectorView> createState() => _PoseDetectorViewState();

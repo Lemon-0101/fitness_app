@@ -8,10 +8,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 
 class ExerciseListPage extends StatefulWidget {
-  final User? user;
   final List<DateTime> selectedDates;
   final List<String> selectedBodyParts;
-  const ExerciseListPage({super.key, required this.user, required this.selectedDates, required this.selectedBodyParts});
+  const ExerciseListPage({super.key, required this.selectedDates, required this.selectedBodyParts});
 
   @override
   State<ExerciseListPage> createState() => _ExerciseListPageState();
@@ -110,7 +109,7 @@ class _ExerciseListPageState extends State<ExerciseListPage> {
                   // Individual action for each card
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ExerciseDetailsPage(user: widget.user, exerciseId: data['exerciseId'])),
+                    MaterialPageRoute(builder: (context) => ExerciseDetailsPage(exerciseId: data['exerciseId'])),
                   );
                 },
               ),

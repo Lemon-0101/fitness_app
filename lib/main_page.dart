@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_app/pressable_card.dart';
 import 'package:fitness_app/exercise_plan_page.dart';
+import 'package:fitness_app/model/user.dart' as UserModel;
 
 class MainPage extends StatefulWidget {
-  final User? user;
-  const MainPage({super.key, required this.user});
+  const MainPage({super.key});
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -33,13 +33,13 @@ class _MainPageState extends State<MainPage> {
       case '1':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => MealPlanPage(user: widget.user)),
+          MaterialPageRoute(builder: (context) => MealPlanPage()),
         );
         break;
       case '2':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ExercisePlanPage(user: widget.user)),
+          MaterialPageRoute(builder: (context) => ExercisePlanPage()),
         );
         break;
       default:
@@ -53,7 +53,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       backgroundColor: theme.colorScheme.primary,
       appBar: AppBar(
-        title: Text('Hi, ${widget.user?.displayName ?? 'User'}!'),
+        title: Text('Hi, ${UserModel.User().name ?? 'User'}!'),
         actions: <Widget>[
           TextButton.icon(
             icon: const Icon(Icons.menu, color: Colors.white),

@@ -60,7 +60,7 @@ class _PoseDetectorPageState extends State<PoseDetectorPage> {
           ),
         ],
       ),
-      body: const PoseDetectorView(user: null, data: null),
+      body: const PoseDetectorView(data: null),
     );
   }
 }

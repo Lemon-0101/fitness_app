@@ -5,8 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_app/select_list_item_card.dart';
 
 class ExercisePlanPage extends StatefulWidget {
-  final User? user;
-  const ExercisePlanPage({super.key, required this.user});
+  const ExercisePlanPage({super.key});
 
   @override
   State<ExercisePlanPage> createState() => _ExercisePlanPageState();
@@ -50,7 +49,7 @@ class _ExercisePlanPageState extends State<ExercisePlanPage> {
               if (_selectedDates.isNotEmpty && _selectedBodyParts.isNotEmpty) {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ExerciseListPage(user: widget.user, selectedDates: _selectedDates, selectedBodyParts: _selectedBodyParts)),
+                  MaterialPageRoute(builder: (context) => ExerciseListPage(selectedDates: _selectedDates, selectedBodyParts: _selectedBodyParts)),
                 );
               }
               else {

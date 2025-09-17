@@ -1,11 +1,13 @@
 import 'package:camera/camera.dart';
 import 'package:fitness_app/getting_started_page.dart';
+import 'package:fitness_app/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fitness_app/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_app/login_page.dart';
 import 'package:flutter/services.dart';
+import 'package:fitness_app/model/user.dart' as UserModel;
 
 List<CameraDescription> cameras = [];
 void main() async {
@@ -85,7 +87,12 @@ class MainApp extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasData) {
-            return GettingStartedPage(user: snapshot.data);
+            try {
+              UserModel.User().id = snapshot.data!.uid;
+            } catch (e) {
+              debugPrint('An unexpected error occurred: $e');
+            }
+            return GettingStartedPage();
           }
           return const LoginPage();
         },
