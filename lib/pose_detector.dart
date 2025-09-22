@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitness_app/pose_classifier_processor.dart';
 import 'package:fitness_app/pose_painter.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_pose_detection/google_mlkit_pose_detection.dart';
@@ -20,6 +21,7 @@ class PoseDetectorView extends StatefulWidget {
 }
 
 class _PoseDetectorViewState extends State<PoseDetectorView> {
+  final PoseClassifierProcessor _classifierProcessor = PoseClassifierProcessor();
   // Detector instance
   final PoseDetector _poseDetector = PoseDetector(
     options: PoseDetectorOptions(
@@ -37,6 +39,8 @@ class _PoseDetectorViewState extends State<PoseDetectorView> {
   // The size of the image being processed
   Size? _imageSize;
 
+  String _poseResult = 'Initializing...';
+
   @override
   void initState() {
     super.initState();
@@ -49,6 +53,7 @@ class _PoseDetectorViewState extends State<PoseDetectorView> {
     _cameraController?.stopImageStream();
     _cameraController?.dispose();
     _poseDetector.close();
+    _classifierProcessor.close();
     super.dispose();
   }
 
@@ -56,12 +61,12 @@ class _PoseDetectorViewState extends State<PoseDetectorView> {
   Future<void> _startLiveFeed() async {
     // Get the back camera
     final camera = (await availableCameras()).firstWhere(
-      (desc) => desc.lensDirection == CameraLensDirection.front,
+      (desc) => desc.lensDirection == CameraLensDirection.back,
     );
 
     _cameraController = CameraController(
       camera,
-      ResolutionPreset.low,
+      ResolutionPreset.high,
       enableAudio: false,
     );
 
@@ -94,6 +99,10 @@ class _PoseDetectorViewState extends State<PoseDetectorView> {
     
     // Create the custom painter to draw the poses
     if (poses.isNotEmpty) {
+      final results = _classifierProcessor.getPoseResult(poses.first);
+      setState(() {
+        _poseResult = results.join('\n');
+      });
       _customPaint = CustomPaint(
         painter: PosePainter(
           poses,
@@ -191,6 +200,26 @@ class _PoseDetectorViewState extends State<PoseDetectorView> {
             SizedBox.expand(
               child: _customPaint!,
             ),
+          // Display the classification results
+          Positioned(
+            bottom: 20,
+            left: 20,
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.6),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Text(
+                _poseResult,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
