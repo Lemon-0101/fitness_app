@@ -28,7 +28,7 @@ class _MealDetailsPageState extends State<MealDetailsPage> {
   Future<void> _fetchData() async {
     try {
       final Map<String, String> queryParameters = {
-        'apiKey': "3037ff4b4e9a453b9bd0a0de29aa97c2",
+        'apiKey': "7f8d7f5a07bb4e59b8ddbfb09698e7ba",
         'includeNutrition': 'true',
       };
       

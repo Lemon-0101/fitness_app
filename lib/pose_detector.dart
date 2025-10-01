@@ -61,7 +61,7 @@ class _PoseDetectorViewState extends State<PoseDetectorView> {
   Future<void> _startLiveFeed() async {
     // Get the back camera
     final camera = (await availableCameras()).firstWhere(
-      (desc) => desc.lensDirection == CameraLensDirection.back,
+      (desc) => desc.lensDirection == CameraLensDirection.front,
     );
 
     _cameraController = CameraController(
